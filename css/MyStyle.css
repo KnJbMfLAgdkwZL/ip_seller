@@ -1,0 +1,78 @@
+.last
+{
+}
+.span-5
+{
+    float: right;
+}
+.sidebar
+{
+}
+.portlet
+{
+    /*float: right;*/
+}
+/*.grid-view table.items th
+{
+    background: none;
+}*/
+.items thead tr th:first-child
+{
+    border-top-left-radius: 10px;
+}
+.items thead tr th:last-child
+{
+    border-top-right-radius: 10px;
+}
+/*ul.yiiPager .selected a
+{
+    background: #2C3E50;
+}*/
+
+.newsdate
+{
+    font-size: 10px;
+    color: gray;
+}
+.Hide
+{
+    float: right;
+    background-color: lightgray;
+    color: black;
+    border: 1px solid gray;
+}
+.news
+{
+    /*width: 1000px;*/
+    text-align: left;
+}
+.newscontainer
+{
+    text-align: -webkit-center;
+}
+.newscontainer .summary
+{
+    display: none;
+}
+.mainlogin
+{
+    width: 270px;
+}
+.mainloginform
+{
+    /*text-align: -webkit-center;*/
+    text-align: center;
+}
+.mainloginform .form-horizontal
+{
+    text-align: left;
+    display: inline-block;
+}
+.mainloginform .buttons
+{
+    text-align: center;
+}
+.mainloginform .buttons .buttonlogin .btn
+{
+    width: 100px;
+}
