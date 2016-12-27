@@ -32,6 +32,7 @@
             $arr[] = array('label' => Yii::t('main-ui', 'News'), 'url' => array('/News/admin'));
             $arr[] = array('label' => Yii::t('main-ui', 'All IP'), 'url' => array('/ipall/index'));
             $arr[] = array('label' => Yii::t('main-ui', 'Admin'), 'url' => array('/Admin/index'));
+            $arr[] = array('label' => Yii::t('main-ui', 'Chat'), 'url' => array('/Chat/AdminAllChat'));
         }
         if ($role == 'User')
         {

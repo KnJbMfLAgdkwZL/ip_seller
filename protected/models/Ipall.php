@@ -21,6 +21,108 @@ class Ipall extends CActiveRecord
     {
         return 'ipall';
     }
+    static public function GetCountLiveIP()
+    {
+        try
+        {
+            $sql = "
+                  SELECT COUNT(ipall.id) AS Cnt FROM ipall
+                    WHERE (SELECT ipstatus.idipall FROM ipstatus WHERE ipstatus.idipall = ipall.id) IS NULL";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function GetCountReservedIP()
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) AS Cnt FROM ipstatus WHERE status = 1";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function GetCountBuyedIP()
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) AS Cnt FROM ipstatus WHERE status = 2";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function GetCountBlackIP()
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) AS Cnt FROM ipstatus WHERE status = 3";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function GetCountDeadIP()
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) AS Cnt FROM ipstatus WHERE status = 4";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
     static public function UserPayForIp($id)
     {
         try

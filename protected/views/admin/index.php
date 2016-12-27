@@ -14,11 +14,29 @@
         <button type="button" id="ChangePrice" class="btn btn-primary col-lg-offset-0 btn-sm">Изменить</button>
     </div>
 
+    <div id='ipstatistic'>
+        <?php
+        $this->renderPartial('ipstat', array('countip' => $countip));
+        ?>
+    </div>
 
 </div>
 
 
 <script>
+    function GetIPStat()
+    {
+        $.ajax({
+            url: '?r=Admin/GetIpStat',
+            data: {},
+            type: 'POST',
+            success: function (msg)
+            {
+                $('#ipstatistic').html(msg);
+            }
+        });
+    }
+    setInterval(GetIPStat, 5000);
     $('#ChangePrice').click(function ()
     {
         var val = $('#Price').val();
