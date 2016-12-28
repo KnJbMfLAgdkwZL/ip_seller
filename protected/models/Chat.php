@@ -16,6 +16,162 @@ class Chat extends CActiveRecord
     {
         return 'chat';
     }
+    static public function UserCheckNewMEsFromser($id)
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) as Cnt FROM `chat` WHERE `to` = :id AND `from` = 0 AND `new` = 1";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    if (count($result['Cnt']) > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return false;
+    }
+    static public function AdminCheckNewMEsFromser($id)
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) as Cnt FROM `chat` WHERE `to` = 0 AND `from` = :id AND `new` = 1";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    if (count($result['Cnt']) > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return false;
+    }
+    static public function UserGetNewMesCnt($id)
+    {
+        try
+        {
+            $id = (int)$id;
+            $sql = "SELECT COUNT(id) as Cnt FROM `chat` WHERE `to` = :id AND `new` = 1";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function AdminGetNewMesCnt()
+    {
+        try
+        {
+            $sql = "SELECT COUNT(id) as Cnt FROM `chat` WHERE `to` = 0 AND `new` = 1";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function UserSendMess($id, $text)
+    {
+        try
+        {
+            $id = (int)$id;
+            $time = time();
+            $sql =
+                'INSERT INTO `ipseller`.`chat` (`id`, `from`, `to`, `message`, `time`, `new`)
+                                    VALUES (NULL, :id, 0, :text, :time, 1)';
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $dataReader->bindParam(":text", $text, PDO::PARAM_STR);
+            $dataReader->bindParam(":time", $time, PDO::PARAM_STR);
+            $dataReader->execute();
+        }
+        catch (Exception $e)
+        {
+        }
+    }
+    static public function AdminSendMess($id, $text)
+    {
+        try
+        {
+            $id = (int)$id;
+            $time = time();
+            $sql =
+                'INSERT INTO `ipseller`.`chat` (`id`, `from`, `to`, `message`, `time`, `new`)
+                                    VALUES (NULL, 0, :id, :text, :time, 1)';
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $dataReader->bindParam(":text", $text, PDO::PARAM_STR);
+            $dataReader->bindParam(":time", $time, PDO::PARAM_STR);
+            $dataReader->execute();
+        }
+        catch (Exception $e)
+        {
+        }
+    }
+    static public function SetNewForUser($id)
+    {
+        try
+        {
+            $id = (int)$id;
+            $sql = 'UPDATE `chat` SET `new` = 0 WHERE `from` = 0 AND `to` = :id';
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $dataReader->execute();
+        }
+        catch (Exception $e)
+        {
+        }
+    }
+    static public function SetNewForAdmin($id)
+    {
+        try
+        {
+            $id = (int)$id;
+            $sql = 'UPDATE `chat` SET `new` = 0 WHERE `from` = :id AND `to` = 0';
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $dataReader->execute();
+        }
+        catch (Exception $e)
+        {
+        }
+    }
     static public function DialogDelete($id)
     {
         try

@@ -24,16 +24,69 @@
     </fieldset>
 </form>
 <script>
+    var height = $("#chatbody").height() + 9999999999999;
+    $("#chatbody").animate({"scrollTop": height}, 1);
     $('#butonsend').click(function ()
     {
         var str = $('#textArea').val();
-        var cur = $('#chatbody').val()
-        $('#chatbody').val(cur + str);
+        var id = <?php echo $id; ?>;
+        //alert(str)
+        if (str.length > 0)
+        {
+            $.ajax({
+                url: '?r=chat/AdminSendMess',
+                data: {
+                    id: id,
+                    text: str
+                },
+                type: 'POST',
+                success: function (msg)
+                {
+                    $('#textArea').val('');
+                    $('#chatbody').html(msg);
 
+                    var height = $("#chatbody").height() + 9999999999999;
+                    $("#chatbody").animate({"scrollTop": height}, 1);
+
+                }
+            });
+        }
     });
+    setInterval(function ()
+    {
+        var id = <?php echo $id; ?>;
 
+        $.ajax({
+            url: '?r=chat/AdminCheckNewMEsFromser',
+            data: {
+                id: id
+            },
+            type: 'POST',
+            success: function (msg)
+            {
+                if (msg == 'yes')
+                {
+                    $.ajax({
+                        url: '?r=chat/AdminGetNewMES',
+                        data: {
+                            id: id
+                        },
+                        type: 'POST',
+                        success: function (msg)
+                        {
+                            $('#chatbody').html(msg);
+
+                            var height = $("#chatbody").height() + 9999999999999;
+                            $("#chatbody").animate({"scrollTop": height}, 1);
+                        }
+                    });
+                }
+            }
+        });
+
+
+    }, 1000);
 </script>
-
 <style>
     #chatcontainer
     {

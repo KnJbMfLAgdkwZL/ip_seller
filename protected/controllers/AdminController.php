@@ -12,13 +12,21 @@ class AdminController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('Index', 'ChangePrice', 'GetIpStat'),
+                'actions' => array('Index', 'ChangePrice', 'GetIpStat', 'Export'),
                 'roles' => array('Admin'),
             ),
             array('deny',
                 'users' => array('*'),
             ),
         );
+    }
+    public function actionExport()//Потом доделать
+    {
+        header('Content-type: text/plain; charset=UTF-8');
+        $str = 'Export_IP ' . date('d.m.y H_i_s', time()) . '.txt';
+        header('Content-Disposition: attachment; filename="' . $str . '"');
+        echo 'Hello World';
+        echo 'Привет Мир';
     }
     public function actionGetIpStat()
     {

@@ -12,7 +12,8 @@ class ClientController extends Controller
     {
         return array(
             array('allow',
-                'actions' => array('GetCount', 'Index', 'ShoppingCart', 'Cabinet',
+                'actions' => array('GetCount', /*'Index',*/
+                    'ShoppingCart', 'Cabinet',
                     'Cartclear', 'Buycart', 'StillAlive', 'Balanse', 'History'
                 ),
                 'roles' => array('User'),
@@ -105,10 +106,10 @@ class ClientController extends Controller
             }
         }
     }
-    public function actionIndex()
+    /*public function actionIndex()
     {
         $this->render('index');
-    }
+    }*/
     public function actionShoppingCart()
     {
         $alertmessage = 'default';

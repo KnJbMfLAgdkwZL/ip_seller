@@ -4,9 +4,11 @@
     $str = '';
     foreach ($result as $k => $v)
     {
-        $v['field'] = UCFirst($v['field']);
-        echo
-        "<div style='margin-left: 2.1234% '>
+        if ($k == 0)
+        {
+            $v['field'] = UCFirst($v['field']);
+            echo
+            "<div style='margin-left: 2.1234%'>
         <div>
             <span style='font-size: 15px; font-weight: bolder; color: #505050'>
                 {$v['field']}:
@@ -20,23 +22,41 @@
                 </span>
                 <span style='color: #317EAC; font-weight: bolder; margin-left: 1.123456%'>
                     {$v['count']}";
-        if ($k == 0)
-        {
             $seartext = $v['value'];
             $seartext = str_ireplace("<span style='color:#0099FF'>", "", $seartext);
             $seartext = str_ireplace("</span>", "", $seartext);
             echo " / <input style='border: 1px solid lightsteelblue; width: 55px' type='number' class='counters' id='{$v['field']}' min='0' max='{$v['count']}' step='1' value='0'/>";
             echo "<input type='hidden' id='seartext' value='$seartext' />";
-        }
-        echo "</span></div>
+            echo '<button style="margin-left: 20px; margin-top: -2px" type="button" id="Buy" class="btn btn-sm btn-primary col-lg-offset-0 disabled">Купить</button>
+            ';
+            echo "</span></div>
         </div>
         <br/>";
-        $str .= "</div>";
+            $str .= "</div>";
+        }
+        else
+        {
+            $v['field'] = UCFirst($v['field']);
+            echo
+            "<div style='margin-left: 0.1234%'>
+        <div>
+            <span style='font-size: 11px; font-weight: bolder; color: #505050'>
+                {$v['field']}:
+            </span>
+            <span style='font-size: 13px; color: dimgray; font-weight: bold; margin-left: 1.123456%'>
+                {$v['value']} ( <span style='color: #317EAC; font-weight: bolder;'>{$v['count']}</span> )
+            </span>
+        </div>
+        <br/>";
+            $str .= "</div>";
+        }
     }
     echo $str;
     ?>
     <br/>
+    <!--
     <button type="button" id="Buy" class="btn btn-primary col-lg-offset-0 disabled">Купить</button>
+    -->
 </div>
 
 <div id="BuyResult"></div>

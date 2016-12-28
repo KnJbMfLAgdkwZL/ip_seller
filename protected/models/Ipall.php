@@ -298,7 +298,27 @@ class Ipall extends CActiveRecord
         {
         }
     }
-    public function getCountBy($sel, $val)
+    static public function getAllCountry()
+    {
+        try
+        {
+            $sql = "SELECT ipall.country FROM ipall WHERE (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
+                GROUP BY ipall.country";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":val", $val, PDO::PARAM_STR);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                return $result;
+            }
+            return 0;
+        }
+        catch (Exception $e)
+        {
+            return 0;
+        }
+    }
+    static public function getCountBy($sel, $val)
     {
         try
         {

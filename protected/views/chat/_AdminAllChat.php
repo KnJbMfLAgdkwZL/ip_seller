@@ -8,7 +8,7 @@ foreach ($result as $k => $v)
     $time = CHtml::encode(date('d.m.y H:i:s', $v['time']));
     $mess = $v['message'];
     $notnew = ' notnew';
-    if ($v['new'] == '1')
+    if ($v['new'] == '1' && $v['to'] == 0)
     {
         $notnew = '';
     }
@@ -33,13 +33,37 @@ foreach ($result as $k => $v)
                 <div class='textmess' id='tmid_{$v['id']}' style='margin-left: 25px; display: inline-block'>
                     $mess
                 </div>
-
-
             </div>
-
         </div>";
 }
 ?>
+<script>
+    $('.close').click(function ()
+    {
+        var userid = $(this).attr('id');
+        userid = userid.split('_');
+        userid = userid[1];
+        $.ajax({
+            url: '?r=chat/Areyousure',
+            data: {
+                userid: userid
+            },
+            type: 'POST',
+            success: function (msg)
+            {
+                $('#alertinfo').html(msg);
+            }
+        });
+    });
+    $('.textmess').click(function ()
+    {
+        var userid = $(this).attr('id');
+        userid = userid.split('_');
+        userid = userid[1];
+        var url = "./index.php?r=chat/Userchat&id=" + userid;
+        $(location).attr("href", url);
+    });
+</script>
 <style>
     .notnew
     {
@@ -73,30 +97,3 @@ foreach ($result as $k => $v)
     }
 </style>
 <div id="alertinfo"></div>
-<script>
-    $('.close').click(function ()
-    {
-        var userid = $(this).attr('id');
-        userid = userid.split('_');
-        userid = userid[1];
-        $.ajax({
-            url: '?r=chat/Areyousure',
-            data: {
-                userid: userid
-            },
-            type: 'POST',
-            success: function (msg)
-            {
-                $('#alertinfo').html(msg);
-            }
-        });
-    });
-    $('.textmess').click(function ()
-    {
-        var userid = $(this).attr('id');
-        userid = userid.split('_');
-        userid = userid[1];
-        var url = "./index.php?r=chat/Userchat&id=" + userid;
-        $(location).attr("href", url);
-    });
-</script>

@@ -20,10 +20,59 @@
         ?>
     </div>
 
+    <div id="ipimportexport">
+        <h3>Импорт/ экспорт базы</h3>
+
+        <div style="margin-top: 20px">
+            <h4>Импорт: </h4>
+
+            <form style="float: left; margin-right: 15px" enctype="multipart/form-data" action="" method="POST">
+                <input style="display: none" name="userfile" id="exporig" type="file" accept="text/plain"/> <input
+                    id="submit" value="Загрузить" type="submit" class="btn btn-primary btn-sm disabled"/> <input
+                    type="hidden" name="MAX_FILE_SIZE" value="3000000000000000"/>
+            </form>
+            <span>
+                <button class="btn btn-info btn-sm" id="explore">
+                    Обзор
+                </button> <strong id="filename">Файл не выбран.</strong>
+            </span>
+        </div>
+
+        <div style="margin-top: 20px">
+            <h4>Экспорт: </h4>
+            <span>
+                <a class="btn btn-success btn-sm" href="./index.php?r=admin/Export">Скачать</a>
+
+
+            </span>
+        </div>
+
+
+    </div>
+
 </div>
 
 
 <script>
+    $('#exporig').change(function ()
+    {
+        var str = $(this).val();
+        $('#filename').html(str);
+
+        if (str != 'Файл не выбран.' && str != '')
+        {
+            $('#submit').removeClass('disabled');
+        }
+        else
+        {
+            $('#submit').addClass('disabled');
+        }
+    });
+    $('#explore').click(function ()
+    {
+        $('#exporig').click();
+    });
+
     function GetIPStat()
     {
         $.ajax({

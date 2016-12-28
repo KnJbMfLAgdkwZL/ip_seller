@@ -20,12 +20,22 @@ Yii::app()->clientScript->registerScript('sel_Hide', "
         });
 	});
 ");
-
-
 ?>
-<style>
-    .empty
+    <style>
+        .empty
+        {
+            display: none;
+        }
+    </style>
+
+
+<?php
+if (!Yii::app()->user->isGuest)
+{
+    $role = Yii::app()->user->getRole();
+    if ($role == 'User')
     {
-        display: none;
+        $this->renderPartial('/client/index');
     }
-</style>
+}
+?>

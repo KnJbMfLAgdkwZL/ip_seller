@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 09 2015 г., 05:28
+-- Время создания: Мар 10 2015 г., 05:20
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.4.24
 
@@ -35,17 +35,14 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `new` int(11) NOT NULL COMMENT 'New or not  (1, 0)',
   PRIMARY KEY (`id`),
   KEY `from` (`from`,`to`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
 
 --
 -- Дамп данных таблицы `chat`
 --
 
 INSERT INTO `chat` (`id`, `from`, `to`, `message`, `time`, `new`) VALUES
-(3, 0, 86, 'User2 вы давно не пополняли ваш баланс', 3, 0),
-(4, 86, 0, 'Да я знаю спасибо что напомнили', 4, 0),
-(10, 87, 0, 'm534543', 785, 0),
-(9, 85, 0, 'dgfdg', 999, 1);
+(65, 85, 0, '11', 1425939515, 0);
 
 -- --------------------------------------------------------
 
@@ -63,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `ipall` (
   `city` varchar(50) NOT NULL,
   `zip` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=163 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=171 ;
 
 --
 -- Дамп данных таблицы `ipall`
@@ -227,7 +224,10 @@ INSERT INTO `ipall` (`id`, `ip`, `login`, `pass`, `country`, `state`, `city`, `z
 (159, '67.190.156.46', 'pi', 'raspberry', 'United States (US)', 'Colorado', 'Pueblo', '81008'),
 (160, '199.20.44.120', 'admin', 'default', 'United States (US)', 'New York', 'New York', 'Unknown'),
 (161, '192.230.133.161', 'ftp', 'ftp', 'United States (US)', 'Iowa', 'Des Moines', '50309'),
-(162, '166.200.165.166', 'root', 'root', 'United States (US)', 'Unknown', 'Unknown', 'Unknown');
+(162, '166.200.165.166', 'root', 'root', 'United States (US)', 'Unknown', 'Unknown', 'Unknown'),
+(170, '196.168.0.1', 'ghj', 'ghjh', 'Argentina', 'ghjhg', 'gh', '456'),
+(169, '127.0.0.2', 'ghjgh', 'ghjhg', 'Zimbabve', 'ghjgh', '5', '567'),
+(168, '127.0.0.1', 'jghjghj', 'tutyu', 'Zimbabve', 'ghjhg', 'ghjgh', '67');
 
 -- --------------------------------------------------------
 
@@ -244,80 +244,7 @@ CREATE TABLE IF NOT EXISTS `ipstatus` (
   PRIMARY KEY (`id`),
   KEY `idipall` (`idipall`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=872 ;
-
---
--- Дамп данных таблицы `ipstatus`
---
-
-INSERT INTO `ipstatus` (`id`, `idipall`, `status`, `userid`, `time`) VALUES
-(679, 34, 2, 85, 1425840281),
-(663, 18, 2, 85, 1425840281),
-(662, 17, 2, 85, 1425840281),
-(661, 16, 2, 85, 1425840281),
-(660, 15, 2, 85, 1425840281),
-(659, 14, 2, 85, 1425840281),
-(658, 13, 2, 85, 1425840281),
-(657, 12, 2, 85, 1425840281),
-(656, 11, 2, 85, 1425840281),
-(655, 10, 2, 85, 1425840281),
-(654, 9, 2, 85, 1425840281),
-(653, 8, 2, 85, 1425840281),
-(652, 7, 2, 85, 1425840281),
-(651, 6, 2, 85, 1425840281),
-(664, 19, 2, 85, 1425840281),
-(665, 20, 2, 85, 1425840281),
-(678, 33, 2, 85, 1425840281),
-(677, 32, 2, 85, 1425840281),
-(676, 31, 2, 85, 1425840281),
-(675, 30, 2, 85, 1425840281),
-(674, 29, 2, 85, 1425840281),
-(673, 28, 2, 85, 1425840281),
-(672, 27, 2, 85, 1425840281),
-(671, 26, 2, 85, 1425840281),
-(670, 25, 2, 85, 1425840281),
-(669, 24, 2, 85, 1425840281),
-(668, 23, 2, 85, 1425840281),
-(667, 22, 2, 85, 1425840281),
-(666, 21, 2, 85, 1425840281),
-(650, 5, 2, 85, 1425840281),
-(684, 39, 2, 85, 1425840281),
-(683, 38, 2, 85, 1425840281),
-(682, 37, 2, 85, 1425840281),
-(681, 36, 2, 85, 1425840281),
-(680, 35, 2, 85, 1425840281),
-(685, 40, 2, 85, 1425840281),
-(686, 41, 2, 85, 1425840281),
-(687, 42, 2, 85, 1425840281),
-(688, 43, 2, 85, 1425840281),
-(689, 44, 2, 85, 1425840281),
-(690, 45, 2, 85, 1425840281),
-(691, 46, 2, 85, 1425840281),
-(692, 47, 2, 85, 1425840281),
-(693, 48, 2, 85, 1425840281),
-(694, 49, 2, 85, 1425840281),
-(695, 50, 2, 85, 1425840281),
-(696, 51, 2, 85, 1425840281),
-(697, 52, 2, 85, 1425840281),
-(698, 53, 2, 85, 1425840281),
-(699, 54, 2, 85, 1425840281),
-(700, 55, 2, 85, 1425840281),
-(701, 56, 2, 85, 1425840281),
-(702, 57, 2, 85, 1425840281),
-(703, 58, 2, 85, 1425840281),
-(704, 59, 2, 85, 1425840281),
-(705, 60, 2, 85, 1425840281),
-(706, 61, 2, 85, 1425840281),
-(707, 62, 2, 85, 1425840281),
-(708, 63, 2, 85, 1425840281),
-(709, 64, 2, 85, 1425840281),
-(710, 65, 2, 85, 1425840281),
-(711, 66, 2, 85, 1425840281),
-(712, 67, 2, 85, 1425840281),
-(713, 68, 2, 85, 1425840281),
-(750, 71, 2, 85, 1425840281),
-(749, 70, 2, 85, 1425840281),
-(748, 69, 2, 85, 1425840281);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1024 ;
 
 -- --------------------------------------------------------
 
@@ -338,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `management` (
 
 INSERT INTO `management` (`key`, `value`) VALUES
 ('Price', '1'),
-('LastCheckAllUserSession', '1425875198');
+('LastCheckAllUserSession', '1425961139');
 
 -- --------------------------------------------------------
 
@@ -375,7 +302,16 @@ CREATE TABLE IF NOT EXISTS `newsshown` (
   `IdUsers` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `IdNews` (`IdNews`,`IdUsers`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+
+--
+-- Дамп данных таблицы `newsshown`
+--
+
+INSERT INTO `newsshown` (`Id`, `IdNews`, `IdUsers`) VALUES
+(24, 12, 85),
+(23, 13, 85),
+(22, 14, 85);
 
 -- --------------------------------------------------------
 
@@ -390,14 +326,14 @@ CREATE TABLE IF NOT EXISTS `userloginedtime` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_2` (`user`),
   KEY `user` (`user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
 
 --
 -- Дамп данных таблицы `userloginedtime`
 --
 
 INSERT INTO `userloginedtime` (`id`, `user`, `time`) VALUES
-(60, 59, 1425875258);
+(97, 85, 1425961181);
 
 -- --------------------------------------------------------
 
@@ -426,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`Id`, `Login`, `Password`, `Reg_Date`, `Role`, `Email`, `Balans`) VALUES
 (59, 'Admin', '$2a$13$iCD/WvVcPSDrtMwi1t2f9ONMIucIqUEvZx5Da3fGRvWdr4pQFszKS', '2015-03-05 18:47:51', 1, 'hgj951gj@mail.ru', 0),
 (87, 'user3', '$2a$13$AGRlbptLEjH4w/vB2J2QueqDaIJsbARKL6Gd1yC/NKsMzPKwGAA/q', '2015-03-08 07:16:05', 2, 'user3@mail.ru', 0),
-(85, 'user', '$2a$13$GQ5RXbAkBR2vQnxPH.b0Qu8pK2DdVtGHPxYanCGmTwG229p6Ax1fG', '2015-03-06 01:55:31', 2, 'user@mail.ru', 102.5),
+(85, 'user', '$2a$13$GQ5RXbAkBR2vQnxPH.b0Qu8pK2DdVtGHPxYanCGmTwG229p6Ax1fG', '2015-03-06 01:55:31', 2, 'user@mail.ru', 79.5),
 (86, 'user2', '$2a$13$qUk/6S9VNEucrszKTEy6kuHPcelSnIXwx6ZZKnEKK4fVAzSArkCLy', '2015-03-08 03:27:37', 2, 'user2@mail.ru', 0);
 
 -- --------------------------------------------------------
