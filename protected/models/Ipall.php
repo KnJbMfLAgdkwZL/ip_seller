@@ -21,6 +21,166 @@ class Ipall extends CActiveRecord
     {
         return 'ipall';
     }
+    static public function GetAllIP()
+    {
+        try
+        {
+            $sql = "SELECT * FROM `ipall`";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
+    static public function GetLiveIP()
+    {
+        try
+        {
+            $sql = "
+                  SELECT * FROM ipall
+                    WHERE (SELECT ipstatus.idipall FROM ipstatus WHERE ipstatus.idipall = ipall.id) IS NULL";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
+    static public function GetSoldIP()
+    {
+        try
+        {
+            $sql = "SELECT ipall.* FROM ipall, ipstatus WHERE ipstatus.idipall = ipall.id AND ipstatus.status = 2";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
+    static public function GetBlackIP()
+    {
+        try
+        {
+            $sql = "SELECT ipall.* FROM ipall, ipstatus WHERE ipstatus.idipall = ipall.id AND ipstatus.status = 3";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
+    static public function GetDeadIP()
+    {
+        try
+        {
+            $sql = "SELECT ipall.* FROM ipall, ipstatus WHERE ipstatus.idipall = ipall.id AND ipstatus.status = 4";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
+    static public function CheckIP($ip)
+    {
+        try
+        {
+            $sql = "SELECT COUNT(*) AS Cnt FROM `ipall` WHERE `ip` LIKE :ip";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":ip", $ip, PDO::PARAM_STR);
+            $result = $dataReader->queryRow();
+            if (Check::Value($result))
+            {
+                if (Check::Value($result['Cnt']))
+                {
+                    return $result['Cnt'];
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return 0;
+    }
+    static public function Import($Allip, &$added, &$matches)
+    {
+        $added = 0;
+        $matches = 0;
+        try
+        {
+            $sql = 'INSERT INTO ipall(id, ip, login, pass, country, state, city, zip)
+                           VALUES (NULL, :ip, :login, :pass, :country, :state, :city, :zip)';
+            $dataReader = Yii::app()->db->createCommand($sql);
+            foreach ($Allip as $k => $v)
+            {
+                if (self::CheckIP($k) <= 0)
+                {
+                    extract($v);
+                    $dataReader->bindParam(":ip", $ip, PDO::PARAM_STR);
+                    $dataReader->bindParam(":login", $login, PDO::PARAM_STR);
+                    $dataReader->bindParam(":pass", $pass, PDO::PARAM_STR);
+                    $dataReader->bindParam(":country", $country, PDO::PARAM_STR);
+                    $dataReader->bindParam(":state", $state, PDO::PARAM_STR);
+                    $dataReader->bindParam(":city", $city, PDO::PARAM_STR);
+                    $dataReader->bindParam(":zip", $zip, PDO::PARAM_STR);
+                    $dataReader->execute();
+                    $added++;
+                }
+                else
+                {
+                    $matches++;
+                }
+            }
+            return true;
+        }
+        catch (Exception $e)
+        {
+            return false;
+        }
+        return false;
+    }
     static public function GetCountLiveIP()
     {
         try

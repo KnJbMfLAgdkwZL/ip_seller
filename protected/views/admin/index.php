@@ -26,7 +26,8 @@
         <div style="margin-top: 20px">
             <h4>Импорт: </h4>
 
-            <form style="float: left; margin-right: 15px" enctype="multipart/form-data" action="" method="POST">
+            <form action="?r=Admin/Import" style="float: left; margin-right: 15px" enctype="multipart/form-data"
+                  method="POST">
                 <input style="display: none" name="userfile" id="exporig" type="file" accept="text/plain"/> <input
                     id="submit" value="Загрузить" type="submit" class="btn btn-primary btn-sm disabled"/> <input
                     type="hidden" name="MAX_FILE_SIZE" value="3000000000000000"/>
@@ -41,19 +42,31 @@
         <div style="margin-top: 20px">
             <h4>Экспорт: </h4>
             <span>
-                <a class="btn btn-success btn-sm" href="./index.php?r=admin/Export">Скачать</a>
 
+                 <select class="form-control" id="ExportSelect"
+                         style="margin-top:-4px; margin-right: 20px; width: 12.123456789%; float: left">
+                     <option value="-1">Все IP</option>
+                     <option value="0">Живые IP</option>
+                     <option value="2">Проданые IP</option>
+                     <option value="3">Черные IP</option>
+                     <option value="4">Мертвые</option>
+                 </select>
 
+                <button id="Export" class="btn btn-success btn-sm">
+                    Скачать
+                </button>
             </span>
         </div>
-
-
     </div>
-
 </div>
 
 
 <script>
+    $('#Export').click(function ()
+    {
+        var value = $('#ExportSelect').val();
+        $(location).attr("href", "./index.php?r=admin/Export&Select=" + value);
+    });
     $('#exporig').change(function ()
     {
         var str = $(this).val();
@@ -72,7 +85,6 @@
     {
         $('#exporig').click();
     });
-
     function GetIPStat()
     {
         $.ajax({
@@ -103,10 +115,8 @@
                     success: function (msg)
                     {
                         $('#curprice').html(msg);
-
                         var myscr = "<script>setTimeout(function () {$('#alertprice').remove();}, 3000);<*script>";
                         myscr = myscr.replace('*', '/');
-
                         var str = "$('#alertprice').remove();";
                         $("#pricecontetnt").append(
                             '<div id="alertprice" style="margin-left:20px; display: inline-block; width: 23.1234%; ">' +
@@ -115,8 +125,6 @@
                             '<strong>Цена</strong> успешно изменина.' +
                             '</div>' + myscr +
                             '</div>');
-
-
                     }
                 });
             }
@@ -130,6 +138,3 @@
         $('#Price').val(val);
     });
 </script>
-
-
-
