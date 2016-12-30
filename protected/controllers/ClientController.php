@@ -48,7 +48,13 @@ class ClientController extends Controller
                 $cntbuy = Ipall::GetUsserBuyedIP($id);
                 $db = new Ipall();
                 $result = $db->GetUsserHistory($id);
-                $this->render('History', array('result' => $result, 'cnt' => $cnt, 'cntbuy' => $cntbuy));
+                $dates = Ipall::GetUsserDateHistoryIP($id);
+                $this->render('History',
+                    array('result' => $result,
+                        'cnt' => $cnt,
+                        'cntbuy' => $cntbuy,
+                        'dates' => $dates,
+                    ));
             }
         }
     }

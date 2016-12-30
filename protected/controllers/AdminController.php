@@ -15,6 +15,10 @@ class AdminController extends Controller
                 'actions' => array('Index', 'ChangePrice', 'GetIpStat', 'Export', 'Import'),
                 'roles' => array('Admin'),
             ),
+            array('allow',
+                'actions' => array('Export'),
+                'roles' => array('User'),
+            ),
             array('deny',
                 'users' => array('*'),
             ),
@@ -87,18 +91,42 @@ class AdminController extends Controller
         }
         $this->renderPartial('ImportAlert', array('alert' => $alert, 'added' => $added, 'matches' => $matches));
     }
-    public function actionExport($Select)//Потом доделать
+    public function actionExport($Select, $date = 0)
     {
         try
         {
             if (!Yii::app()->user->isGuest)
             {
+                $Select = Check::Clear($Select);
+                $str = '';
+                $result = array();
                 $role = Yii::app()->user->getRole();
+                if ($role == 'User')
+                {
+                    if ($Select == 2)
+                    {
+                        $date = Check::Clear($date);
+                        if (Check::Value($date))
+                        {
+                            $id = Yii::app()->user->getId();
+                            $id = (int)$id;
+                            if ($date == 'All')
+                            {
+                                $str = 'All';
+                                $result = Ipall::GetSoldClientIP($id);
+                            }
+                            else
+                            {
+                                $date = (int)$date;
+                                $d = date('d.m.y H_i_s', $date);
+                                $str = "By($d)";
+                                $result = Ipall::GetSoldClientIP_ByDate($id, $date);
+                            }
+                        }
+                    }
+                }
                 if ($role == 'Admin')
                 {
-                    $Select = Check::Clear($Select);
-                    $str = '';
-                    $result = array();
                     if ($Select == -1)
                     {
                         $str = 'All';
@@ -124,18 +152,18 @@ class AdminController extends Controller
                         $str = 'Dead';
                         $result = Ipall::GetDeadIP();
                     }
-                    header('Content-type: text/plain; charset=UTF-8');
-                    $str = "Export_{$str}_IP " . date('d.m.y H_i_s', time()) . '.txt';
-                    header('Content-Disposition: attachment; filename="' . $str . '"');
-                    $size = count($result) - 1;
-                    foreach ($result as $k => $v)
+                }
+                header('Content-type: text/plain; charset=UTF-8');
+                $str = "Export_{$str}_IP " . date('d.m.y H_i_s', time()) . '.txt';
+                header('Content-Disposition: attachment; filename="' . $str . '"');
+                $size = count($result) - 1;
+                foreach ($result as $k => $v)
+                {
+                    extract($v);
+                    echo "$ip | $login | $pass | $country | $state | $city | $zip";
+                    if ($k != $size)
                     {
-                        extract($v);
-                        echo "$ip | $login | $pass | $country | $state | $city | $zip";
-                        if ($k != $size)
-                        {
-                            echo "\r\n";
-                        }
+                        echo "\r\n";
                     }
                 }
             }

@@ -39,8 +39,31 @@ if ($cntbuy > 0)
         }
     </style>
     <h3>История покупок </h3>
-    <?php
+    <button id="Export" class="btn btn-success btn-sm">
+        Скачать
+    </button>
 
+    <select class="form-control" id="ExportSelect"
+            style="float: left; margin-top:-4px; margin-right: 20px; width: 21.123456789%;">
+        <option value="All">Все IP</option>
+        <?php
+        foreach ($dates as $k => $v)
+        {
+            $d = CHtml::encode(date('d.m.Y H:i:s', $v["time"]));
+            echo "<option value='{$v['time']}'>$d</option>";
+        }
+        ?>
+    </select>
+
+    <script>
+        $('#Export').click(function ()
+        {
+            var value = $('#ExportSelect').val();
+            var href = "./index.php?r=admin/Export&Select=2&date=" + value;
+            $(location).attr("href", href);
+        });
+    </script>
+    <?php
     $this->widget('zii.widgets.grid.CGridView', array(
             'id' => 'history-ip',
             'dataProvider' => $result,

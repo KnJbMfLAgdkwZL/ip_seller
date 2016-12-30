@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 10 2015 г., 14:25
+-- Время создания: Мар 11 2015 г., 06:41
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.4.24
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `ipall` (
   `city` varchar(50) NOT NULL,
   `zip` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=342 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=343 ;
 
 --
 -- Дамп данных таблицы `ipall`
@@ -223,7 +223,8 @@ INSERT INTO `ipall` (`id`, `ip`, `login`, `pass`, `country`, `state`, `city`, `z
 (338, '67.190.156.46', 'pi', 'raspberry', 'United States (US)', 'Colorado', 'Pueblo', '81008'),
 (339, '199.20.44.120', 'admin', 'default', 'United States (US)', 'New York', 'New York', 'Unknown'),
 (340, '192.230.133.161', 'ftp', 'ftp', 'United States (US)', 'Iowa', 'Des Moines', '50309'),
-(341, '166.200.165.166', 'root', 'root', 'United States (US)', 'Unknown', 'Unknown', 'Unknown');
+(341, '166.200.165.166', 'root', 'root', 'United States (US)', 'Unknown', 'Unknown', 'Unknown'),
+(342, '75.151.201.133', 'PlcmSpIp', 'PlcmSpIp', 'United States (US)', 'Louisiana', 'Monroe', '71201');
 
 -- --------------------------------------------------------
 
@@ -240,33 +241,33 @@ CREATE TABLE IF NOT EXISTS `ipstatus` (
   PRIMARY KEY (`id`),
   KEY `idipall` (`idipall`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1044 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Дамп данных таблицы `ipstatus`
 --
 
 INSERT INTO `ipstatus` (`id`, `idipall`, `status`, `userid`, `time`) VALUES
-(1043, 295, 2, 85, 1425993751),
-(1042, 296, 2, 85, 1425993751),
-(1041, 297, 2, 85, 1425993751),
-(1040, 298, 2, 85, 1425993751),
-(1039, 299, 2, 85, 1425993751),
-(1038, 300, 2, 85, 1425993751),
-(1037, 301, 2, 85, 1425993751),
-(1036, 302, 2, 85, 1425993751),
-(1035, 303, 2, 85, 1425993751),
-(1034, 304, 2, 85, 1425993751),
-(1033, 305, 2, 85, 1425993751),
-(1032, 306, 2, 85, 1425993751),
-(1031, 307, 2, 85, 1425993751),
-(1030, 308, 2, 85, 1425993751),
-(1029, 309, 2, 85, 1425993751),
-(1028, 310, 2, 85, 1425993751),
-(1027, 311, 2, 85, 1425993751),
-(1026, 312, 2, 85, 1425993751),
-(1025, 313, 2, 85, 1425993751),
-(1024, 314, 2, 85, 1425993751);
+(1, 314, 2, 85, 1426043116),
+(2, 313, 2, 85, 1426043116),
+(3, 312, 2, 85, 1426043116),
+(4, 311, 2, 85, 1426043116),
+(5, 310, 2, 85, 1426043116),
+(6, 309, 2, 85, 1426043182),
+(7, 308, 2, 85, 1426043182),
+(8, 307, 2, 85, 1426043182),
+(9, 306, 2, 85, 1426043182),
+(10, 305, 2, 85, 1426043182),
+(11, 304, 2, 85, 1426043346),
+(12, 303, 2, 85, 1426043346),
+(13, 302, 2, 85, 1426043346),
+(14, 301, 2, 85, 1426043346),
+(15, 300, 2, 85, 1426043346),
+(16, 299, 2, 85, 1426043346),
+(17, 298, 2, 85, 1426043346),
+(18, 297, 2, 85, 1426043346),
+(19, 296, 2, 85, 1426052077),
+(20, 295, 2, 85, 1426052077);
 
 -- --------------------------------------------------------
 
@@ -287,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `management` (
 
 INSERT INTO `management` (`key`, `value`) VALUES
 ('Price', '1'),
-('LastCheckAllUserSession', '1425993812');
+('LastCheckAllUserSession', '1426052474');
 
 -- --------------------------------------------------------
 
@@ -324,16 +325,19 @@ CREATE TABLE IF NOT EXISTS `newsshown` (
   `IdUsers` int(11) NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `IdNews` (`IdNews`,`IdUsers`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
 
 --
 -- Дамп данных таблицы `newsshown`
 --
 
 INSERT INTO `newsshown` (`Id`, `IdNews`, `IdUsers`) VALUES
+(25, 14, 87),
 (24, 12, 85),
 (23, 13, 85),
-(22, 14, 85);
+(22, 14, 85),
+(26, 13, 87),
+(27, 12, 87);
 
 -- --------------------------------------------------------
 
@@ -348,14 +352,14 @@ CREATE TABLE IF NOT EXISTS `userloginedtime` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_2` (`user`),
   KEY `user` (`user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=104 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
 
 --
 -- Дамп данных таблицы `userloginedtime`
 --
 
 INSERT INTO `userloginedtime` (`id`, `user`, `time`) VALUES
-(103, 85, 1425993866);
+(121, 85, 1426052480);
 
 -- --------------------------------------------------------
 
@@ -383,9 +387,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`Id`, `Login`, `Password`, `Reg_Date`, `Role`, `Email`, `Balans`) VALUES
 (59, 'Admin', '$2a$13$iCD/WvVcPSDrtMwi1t2f9ONMIucIqUEvZx5Da3fGRvWdr4pQFszKS', '2015-03-05 18:47:51', 1, 'hgj951gj@mail.ru', 0),
-(87, 'user3', '$2a$13$AGRlbptLEjH4w/vB2J2QueqDaIJsbARKL6Gd1yC/NKsMzPKwGAA/q', '2015-03-08 07:16:05', 2, 'user3@mail.ru', 0),
-(85, 'user', '$2a$13$GQ5RXbAkBR2vQnxPH.b0Qu8pK2DdVtGHPxYanCGmTwG229p6Ax1fG', '2015-03-06 01:55:31', 2, 'user@mail.ru', 59.5),
-(86, 'user2', '$2a$13$qUk/6S9VNEucrszKTEy6kuHPcelSnIXwx6ZZKnEKK4fVAzSArkCLy', '2015-03-08 03:27:37', 2, 'user2@mail.ru', 0);
+(87, 'user3', '$2a$13$AGRlbptLEjH4w/vB2J2QueqDaIJsbARKL6Gd1yC/NKsMzPKwGAA/q', '2015-03-08 07:16:05', 2, 'user3@mail.ru', 7),
+(85, 'user', '$2a$13$GQ5RXbAkBR2vQnxPH.b0Qu8pK2DdVtGHPxYanCGmTwG229p6Ax1fG', '2015-03-06 01:55:31', 2, 'user@mail.ru', 9.5),
+(86, 'user2', '$2a$13$qUk/6S9VNEucrszKTEy6kuHPcelSnIXwx6ZZKnEKK4fVAzSArkCLy', '2015-03-08 03:27:37', 2, 'user2@mail.ru', 18);
 
 -- --------------------------------------------------------
 

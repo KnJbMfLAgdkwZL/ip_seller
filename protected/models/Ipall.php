@@ -83,6 +83,51 @@ class Ipall extends CActiveRecord
         }
         return array();
     }
+    static public function GetSoldClientIP_ByDate($id, $date)
+    {
+        try
+        {
+            $sql = "SELECT ipall.* FROM ipall, ipstatus WHERE ipstatus.idipall = ipall.id AND ipstatus.status = 2
+                      AND ipstatus.userid = :id AND ipstatus.time = :date ORDER BY ipstatus.time";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $dataReader->bindParam(":date", $date, PDO::PARAM_INT);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
+    static public function GetSoldClientIP($id)
+    {
+        try
+        {
+            $sql = "SELECT ipall.* FROM ipall, ipstatus WHERE ipstatus.idipall = ipall.id AND ipstatus.status = 2
+                      AND ipstatus.userid = :id ORDER BY ipstatus.time";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
     static public function GetBlackIP()
     {
         try
@@ -288,7 +333,7 @@ class Ipall extends CActiveRecord
         try
         {
             $id = (int)$id;
-            $sql = 'UPDATE ipstatus SET status = 2, time = :time WHERE userid = :id';
+            $sql = 'UPDATE ipstatus SET status = 2, time = :time WHERE userid = :id AND status = 1';
             $dataReader = Yii::app()->db->createCommand($sql);
             $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
             $time = time();
@@ -399,6 +444,25 @@ class Ipall extends CActiveRecord
         catch (Exception $e)
         {
         }
+    }
+    static public function GetUsserDateHistoryIP($id)
+    {
+        try
+        {
+            $id = (int)$id;
+            $sql = "SELECT s.time FROM ipall i, ipstatus s
+                      WHERE i.id = s.idipall AND s.status = 2 AND s.userid = :id
+                      GROUP BY s.time
+                      ORDER BY s.time DESC, i.country, i.state, i.city, i.zip";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":id", $id, PDO::PARAM_INT);
+            $result = $dataReader->queryAll();
+            return $result;
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
     }
     public function GetUsserHistory($id)
     {
