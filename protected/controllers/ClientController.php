@@ -14,7 +14,8 @@ class ClientController extends Controller
             array('allow',
                 'actions' => array('GetCount', /*'Index',*/
                     'ShoppingCart', 'Cabinet',
-                    'Cartclear', 'Buycart', 'StillAlive', 'Balanse', 'History'
+                    'Cartclear', 'Buycart', 'StillAlive', 'Balanse', 'History',
+                    'GetNextCount'
                 ),
                 'roles' => array('User'),
             ),
@@ -22,6 +23,36 @@ class ClientController extends Controller
                 'users' => array('*'),
             ),
         );
+    }
+    public function actionGetNextCount()
+    {
+        if (Check::Value($_POST))
+        {
+            if (Check::Value($_POST['text']))
+            {
+                if (Check::Value($_POST['field']))
+                {
+                    if (Check::Value($_POST['kill']))
+                    {
+                        $text = Check::Clear($_POST['text']);
+                        $field = Check::Clear($_POST['field']);
+                        $kill = Check::Clear($_POST['kill']);
+                        $arr = array('country', 'state', 'city', 'zip');
+                        if (in_array($field, $arr))
+                        {
+                            $i = array_search($field, $arr);
+                            $i++;
+                            if (array_key_exists($i, $arr))
+                            {
+                                $next = $arr[$i];
+                                $result = Ipall::GetNextCount($text, $field, $next);
+                                $this->renderPartial('GetTr', array('result' => $result, 'next' => $next, 'kill' => $kill));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     public function actionBalanse()
     {
@@ -33,6 +64,28 @@ class ClientController extends Controller
             {
                 $cnt = Ipall::GetUsserCartCount($id);
                 $this->render('Balanse', array('cnt' => $cnt));
+            }
+        }
+    }
+    public function History()
+    {
+        $this->layout = '//layouts/column3';
+        if (!Yii::app()->user->isGuest)
+        {
+            $id = Yii::app()->user->getId();
+            if (Check::Value($id))
+            {
+                $cnt = Ipall::GetUsserCartCount($id);
+                $cntbuy = Ipall::GetUsserBuyedIP($id);
+                $db = new Ipall();
+                $result = $db->GetUsserHistory($id);
+                $dates = Ipall::GetUsserDateHistoryIP($id);
+                $arr = array('result' => $result,
+                    'cnt' => $cnt,
+                    'cntbuy' => $cntbuy,
+                    'dates' => $dates,
+                );
+                return $arr;
             }
         }
     }
@@ -70,7 +123,9 @@ class ClientController extends Controller
                 $result = $db->GetUsserCart($id);
                 $db = new Management();
                 $price = $db->getPrice();
-                $this->render('Cabinet', array('result' => $result, 'price' => $price));
+                //$this->render('Cabinet', array('result' => $result, 'price' => $price));
+                $History = $this->History();
+                $this->render('Cabinet', array('result' => $result, 'price' => $price, 'History' => $History));
             }
         }
     }

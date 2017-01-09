@@ -45,7 +45,7 @@ else if ($alertmessage == 'suchespayet')
     $str = 'Вы успешно преобрели IP';
     $head = 'Операция прошла успешно';
     $btn = 'btn-primary';
-    $closescript = '$(location).attr("href", "./index.php?r=client/History");';
+    $closescript = '$(location).attr("href", "./index.php?r=client/Cabinet");';
 }
 
 ?>

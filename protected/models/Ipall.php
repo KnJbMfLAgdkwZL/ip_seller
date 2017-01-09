@@ -21,6 +21,34 @@ class Ipall extends CActiveRecord
     {
         return 'ipall';
     }
+    static public function GetNextCount($text, $field, $next)
+    {
+        try
+        {
+            $sql =
+            "SELECT
+                `$next` AS `name`,
+                (SELECT COUNT(id) FROM `ipall`WHERE `$next` = `name` AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL ) AS `count`
+            FROM `ipall`
+            WHERE `$field` = :text
+            AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
+            GROUP BY `$next` ORDER BY `$next`";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":text", $text, PDO::PARAM_STR);
+            $result = $dataReader->queryAll();
+            if (Check::Value($result))
+            {
+                if (count($result))
+                {
+                    return $result;
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+        return array();
+    }
     static public function GetAllIP()
     {
         try
@@ -479,7 +507,7 @@ class Ipall extends CActiveRecord
                     'keyField' => 'id',
                     'sort' => array(
                         'attributes' => array('id', 'ip', 'login', 'pass', 'country', 'state', 'city', 'zip', 'time'),),
-                    'pagination' => array('pageSize' => 20,),)
+                    'pagination' => array('pageSize' => 15,),)
             );
             return $model;
         }

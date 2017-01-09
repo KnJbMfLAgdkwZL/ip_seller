@@ -82,129 +82,259 @@ foreach ($AllCountry as $k => &$v)
 }
 if (count($AllCountry) > 0)
 {
+    echo '<div id="BuyResult"></div>';
     echo '<table class="table table-striped table-hover" style="width: 45.123456789%">
     <tbody>';
+    $str = 'country';
     foreach ($AllCountry as $k => &$v)
     {
-        $str = 'country' . $k;
-        ?>
-
+        $rand = md5($v['country']);
+        echo "
         <tr>
             <td>
-                <strong><?= $v['country']; ?></strong>
+                <span class='openmore $str' field='$str' kill='$rand'>+</span>
+                <strong>{$v['country']}</strong>
             </td>
             <td>
-                <span style='color: #317EAC; font-weight: bolder; margin-left: 1.123456%'>
-                    <?= $v['count']; ?>
-                </span>
+                <span class='count'>{$v['count']}</span>
             </td>
             <td>
-                <input style='border: 1px solid lightsteelblue; width: 55px' type='number' class='counters<?= $str; ?>'
-                       min='0' max='<?= $v['count']; ?>' step='1' value='0'/>
+                <input class='counters' type='number' min='0' max='{$v['count']}' step='1' value='0'/>
             </td>
             <td>
-                <button style="margin-left: 20px; margin-top: -2px" type="button" id="Buy<?= $str; ?>"
-                        class="btn btn-sm btn-primary col-lg-offset-0 disabled">Купить
-                </button>
-                <div id="BuyResult<?= $str; ?>"></div>
-            </td>
+                <button class='btn btn-sm btn-primary col-lg-offset-0 disabled buybtn'>Купить</button>
+            </td>";
+        ?>
         </tr>
-        <script>
-            $('#Buy<?= $str; ?>').click(function ()
-            {
-                /*$('#Searchtext').val('');
-                 $('#SearchResult').html('');*/
-
-                var obj = $('.counters<?= $str; ?>');
-                var field = 'country';
-                var count = obj.val();
-                var seartext = '<?= $v['country']; ?>';
-                $.ajax({
-                    url: '?r=client/ShoppingCart',
-                    data: {
-                        field: field,
-                        seartext: seartext,
-                        count: count
-                    },
-                    type: 'POST',
-                    success: function (msg)
-                    {
-                        $('#BuyResult<?= $str; ?>').html(msg);
-                    }
-                });
-            });
-            $('.counters<?= $str; ?>').click(function ()
-            {
-                var val = $('.counters<?= $str; ?>').val();
-                if (val == '' || val == '0')
-                {
-                    $('#Buy<?= $str; ?>').addClass("disabled");
-                }
-                else
-                {
-                    $('#Buy<?= $str; ?>').removeClass("disabled");
-                }
-            });
-            $('.counters<?= $str; ?>').focus(function ()
-            {
-                var val = $('.counters<?= $str; ?>').val();
-                if (val == '' || val == '0')
-                {
-                    $('#Buy<?= $str; ?>').addClass("disabled");
-
-                }
-                else
-                {
-                    $('#Buy<?= $str; ?>').removeClass("disabled");
-                }
-                $(".counters<?= $str; ?>").keyup(function (key)
-                {
-                    var cur = parseInt($('.counters<?= $str; ?>').val());
-                    var max = parseInt($('.counters<?= $str; ?>').attr('max'));
-                    if (cur >= max)
-                    {
-                        $('.counters<?= $str; ?>').val(max);
-                    }
-                    if ($('.counters<?= $str; ?>').val() == '')
-                    {
-                        $('.counters<?= $str; ?>').val(0);
-                    }
-                    var val = $('.counters<?= $str; ?>').val();
-                    if (val == '' || val == '0')
-                    {
-                        $('#Buy<?= $str; ?>').addClass("disabled");
-                    }
-                    else
-                    {
-                        $('#Buy<?= $str; ?>').removeClass("disabled");
-                    }
-                });
-                $(".counters<?= $str; ?>").keydown(function (key)
-                {
-                    if (48 <= key.which && key.which <= 57 || 96 <= key.which && key.which <= 105 || key.which == 8)
-                    {
-                        var ent = key.key;
-                        var cur = $('.counters<?= $str; ?>').val();
-                        var max = parseInt($('.counters<?= $str; ?>').attr('max'));
-                        var sum = cur + ent;
-                        sum = parseInt(sum);
-                        if (cur == '0')
-                        {
-                            $('.counters<?= $str; ?>').val('');
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                });
-            });
-        </script>
     <?php
     }
     echo '</tbody>
 </table>';
 }
 ?>
+<script>
+
+    $('.buybtn').live("click", function ()
+    {
+        var parent = $(this).parent();
+        parent = parent.parent();
+        var counters = parent.children().eq(2).children();
+        var obj = counters;
+        var count = obj.val();
+        var seartext = parent.children().eq(0).children().eq(1).html();
+        var field = parent.children().eq(0).children().eq(0).attr('field');
+        $.ajax({
+            url: '?r=client/ShoppingCart',
+            data: {
+                field: field,
+                seartext: seartext,
+                count: count
+            },
+            type: 'POST',
+            success: function (msg)
+            {
+                $('#BuyResult').html(msg);
+            }
+        });
+    });
+
+    $('input[type=number]').live("click", function ()
+    {
+        var parent = $(this).parent();
+        parent = parent.parent();
+        var buy = parent.children().eq(3).children(0)
+
+        var val = $(this).val();
+        if (val == '' || val == '0')
+        {
+            buy.addClass("disabled");
+        }
+        else
+        {
+            buy.removeClass("disabled");
+        }
+    });
+
+    $('.counters').live("focus", function ()
+    {
+        var parent = $(this).parent();
+        parent = parent.parent();
+        var buy = parent.children().eq(3).children(0)
+
+        var val = $(this).val();
+        if (val == '' || val == '0')
+        {
+            buy.addClass("disabled");
+        }
+        else
+        {
+            buy.removeClass("disabled");
+        }
+        $(".counters").live("keyup", function (key)
+        {
+            var cur = parseInt($(this).val());
+            var max = parseInt($(this).attr('max'));
+            if (cur >= max)
+            {
+                $(this).val(max);
+            }
+            if ($(this).val() == '')
+            {
+                $(this).val(0);
+            }
+            var val = $(this).val();
+            if (val == '' || val == '0')
+            {
+                var parent = $(this).parent();
+                parent = parent.parent();
+                var buy = parent.children().eq(3).children(0)
+                buy.addClass("disabled");
+            }
+            else
+            {
+                var parent = $(this).parent();
+                parent = parent.parent();
+                var buy = parent.children().eq(3).children(0)
+                buy.removeClass("disabled");
+            }
+        });
+        $(".counters").live("keydown", function (key)
+        {
+            if (48 <= key.which && key.which <= 57 || 96 <= key.which && key.which <= 105 || key.which == 8)
+            {
+                var ent = key.key;
+                var cur = $(this).val();
+                var max = parseInt($(this).attr('max'));
+                var sum = cur + ent;
+                sum = parseInt(sum);
+                if (cur == '0')
+                {
+                    $(this).val('');
+                }
+            }
+            else
+            {
+                return false;
+            }
+        });
+    });
+
+    $('.openmore').live("click", function ()
+    {
+        var cur = $(this);
+        var text = cur.parent().children().eq(1).html();
+        var field = cur.attr('field');
+        var kill = cur.attr('kill');
+        if (cur.html() == '+')
+        {
+            $.ajax({
+                url: '?r=client/GetNextCount',
+                data: {
+                    text: text,
+                    field: field,
+                    kill: kill
+                },
+                type: 'POST',
+                success: function (msg)
+                {
+                    cur.html('-');
+                    cur.parent().parent().after(msg);
+                }
+            });
+        }
+        else
+        {
+            cur.html('+');
+            var arr = kill.split(' ');
+            kill = '.' + arr[arr.length - 1];
+            $(kill).remove();
+        }
+    });
+
+
+</script>
+<style>
+    .openmore
+    {
+        cursor: pointer;
+        padding: 0px 4px;
+        color: #428BCA;
+        font-weight: bold;
+        border: 1px solid #428BCA;
+        margin-right: 5px;
+    }
+    .buybtn
+    {
+        margin-left: 20px;
+        margin-top: -2px;
+    }
+    .count
+    {
+        color: #317EAC;
+        font-weight: bolder;
+        margin-left: 1.123456%;
+    }
+    .counters
+    {
+        border: 1px solid lightsteelblue;
+        width: 55px;
+    }
+    .country
+    {
+        margin-left: 0px;
+    }
+    .state
+    {
+        margin-left: 20px;
+    }
+    .city
+    {
+        margin-left: 40px;
+    }
+    .zip
+    {
+        margin-left: 60px;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

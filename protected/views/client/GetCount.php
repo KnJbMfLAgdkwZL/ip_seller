@@ -16,20 +16,22 @@
             <span style='color: dimgray; font-weight: bold; margin-left: 1.123456%'>
                 {$v['value']}
             </span>
-            <div style='margin-top: 3px;'>
+            <span style='margin-top: 0px;'>
+                <!--
                 <span style='font-size: 14px; font-weight: bolder; color: #505050'>
                     Count:
                 </span>
+                -->
                 <span style='color: #317EAC; font-weight: bolder; margin-left: 1.123456%'>
                     {$v['count']}";
             $seartext = $v['value'];
             $seartext = str_ireplace("<span style='color:#0099FF'>", "", $seartext);
             $seartext = str_ireplace("</span>", "", $seartext);
-            echo " / <input style='border: 1px solid lightsteelblue; width: 55px' type='number' class='counters' id='{$v['field']}' min='0' max='{$v['count']}' step='1' value='0'/>";
+            echo " / <input style='border: 1px solid lightsteelblue; width: 55px' type='number' class='counters11' id='{$v['field']}' min='0' max='{$v['count']}' step='1' value='0'/>";
             echo "<input type='hidden' id='seartext' value='$seartext' />";
             echo '<button style="margin-left: 20px; margin-top: -2px" type="button" id="Buy" class="btn btn-sm btn-primary col-lg-offset-0 disabled">Купить</button>
             ';
-            echo "</span></div>
+            echo "</span></span>
         </div>
         <br/>";
             $str .= "</div>";
@@ -64,10 +66,8 @@
 <script>
     $('#Buy').click(function ()
     {
-        /*$('#Searchtext').val('');
-         $('#SearchResult').html('');*/
 
-        var obj = $('.counters');
+        var obj = $('.counters11');
         var field = obj.attr('id');
         var count = obj.val();
         var seartext = $('#seartext').val();
@@ -86,9 +86,9 @@
             }
         });
     });
-    $('.counters').click(function ()
+    $('.counters11').click(function ()
     {
-        var val = $('.counters').val();
+        var val = $('.counters11').val();
         if (val == '' || val == '0')
         {
             $('#Buy').addClass("disabled");
@@ -98,9 +98,9 @@
             $('#Buy').removeClass("disabled");
         }
     });
-    $('.counters').focus(function ()
+    $('.counters11').focus(function ()
     {
-        var val = $('.counters').val();
+        var val = $('.counters11').val();
         if (val == '' || val == '0')
         {
             $('#Buy').addClass("disabled");
@@ -110,19 +110,19 @@
         {
             $('#Buy').removeClass("disabled");
         }
-        $(".counters").keyup(function (key)
+        $(".counters11").keyup(function (key)
         {
-            var cur = parseInt($('.counters').val());
-            var max = parseInt($('.counters').attr('max'));
+            var cur = parseInt($('.counters11').val());
+            var max = parseInt($('.counters11').attr('max'));
             if (cur >= max)
             {
-                $('.counters').val(max);
+                $('.counters11').val(max);
             }
-            if ($('.counters').val() == '')
+            if ($('.counters11').val() == '')
             {
-                $('.counters').val(0);
+                $('.counters11').val(0);
             }
-            var val = $('.counters').val();
+            var val = $('.counters11').val();
             if (val == '' || val == '0')
             {
                 $('#Buy').addClass("disabled");
@@ -132,18 +132,18 @@
                 $('#Buy').removeClass("disabled");
             }
         });
-        $(".counters").keydown(function (key)
+        $(".counters11").keydown(function (key)
         {
             if (48 <= key.which && key.which <= 57 || 96 <= key.which && key.which <= 105 || key.which == 8)
             {
                 var ent = key.key;
-                var cur = $('.counters').val();
-                var max = parseInt($('.counters').attr('max'));
+                var cur = $('.counters11').val();
+                var max = parseInt($('.counters11').attr('max'));
                 var sum = cur + ent;
                 sum = parseInt(sum);
                 if (cur == '0')
                 {
-                    $('.counters').val('');
+                    $('.counters11').val('');
                 }
             }
             else

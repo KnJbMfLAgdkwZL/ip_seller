@@ -46,13 +46,13 @@
             </ul>";
         //$logoimg = Yii::app()->request->baseUrl.'/images/logo.png';
         //$arr[] = array('label' => "<img class='navbar-left' style='height: 50px' src='$logoimg'></img>");
-        $arr[] = array('label' => Yii::t('main-ui', 'Home'), 'url' => array('/site/index'),);
+        $arr[] = array('label' => Yii::t('main-ui', 'Главная'), 'url' => array('/site/index'),);
         if ($role == 'Admin')
         {
-            $arr[] = array('label' => Yii::t('main-ui', 'Users'), 'url' => array('/Users/admin'));
-            $arr[] = array('label' => Yii::t('main-ui', 'News'), 'url' => array('/News/admin'));
-            $arr[] = array('label' => Yii::t('main-ui', 'All IP'), 'url' => array('/ipall/admin'));
-            $arr[] = array('label' => Yii::t('main-ui', 'Admin'), 'url' => array('/Admin/index'));
+            $arr[] = array('label' => Yii::t('main-ui', 'Пользователи'), 'url' => array('/Users/admin'));
+            $arr[] = array('label' => Yii::t('main-ui', 'Новости'), 'url' => array('/News/admin'));
+            $arr[] = array('label' => Yii::t('main-ui', 'Все IP'), 'url' => array('/ipall/admin'));
+            $arr[] = array('label' => Yii::t('main-ui', 'Админ'), 'url' => array('/Admin/index'));
             //$arr[] = array('label' => Yii::t('main-ui', 'Chat'), 'url' => array('/Chat/AdminAllChat'));
             $newmes = Chat::AdminGetNewMesCnt();
             $str = '';
@@ -60,12 +60,12 @@
             {
                 $str = " <span class='badge'>$newmes</span>";
             }
-            $arr[] = array('label' => "Chat$str", 'url' => array('/Chat/AdminAllChat'));
+            $arr[] = array('label' => "Чат$str", 'url' => array('/Chat/AdminAllChat'));
         }
         if ($role == 'User')
         {
             //$arr[] = array('label' => Yii::t('main-ui', 'Search IP'), 'url' => array('/client/index'));
-            $arr[] = array('label' => Yii::t('main-ui', 'Cabinet'), 'url' => array('/client/Cabinet'));
+            $arr[] = array('label' => Yii::t('main-ui', 'Кабинет'), 'url' => array('/client/Cabinet'));
             $id = Yii::app()->user->getId();
             $newmes = Chat::UserGetNewMesCnt($id);
             $str = '';
@@ -74,13 +74,13 @@
                 $str = " <span class='badge'>$newmes</span>";
             }
             $id = Yii::app()->user->getId();
-            $arr[] = array('label' => "Chat$str", 'url' => array('/Chat/Userchat&id=' . $id));
+            $arr[] = array('label' => "Чат$str", 'url' => array('/Chat/Userchat&id=' . $id));
             $balance = Users::GetBalans();
             $arr[] =
                 array('label' =>
                     "<strong class='text-danger'  style='font-size: 18px'>$balance</strong> <span style='color: darkgreen; font-size: 16px;'>USD</span>", 'url' => array('/client/Balanse'));
         }
-        $arr[] = array('label' => Yii::t('main-ui', 'Logout') . ' (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest);
+        $arr[] = array('label' => Yii::t('main-ui', 'Выход') . ' (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest);
         $this->widget('zii.widgets.CMenu',
             array(
                 'items' => $arr,

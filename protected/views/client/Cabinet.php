@@ -5,9 +5,9 @@ $this->menu = array(
         ' . $balance . '
         </strong>
             <span class="text-success">USD</span></strong>'),
+    array('label' => '<strong class="text-danger">Пополнить</strong>', 'url' => array('Balanse')),
     array('label' => 'Корзина', 'url' => array('Cabinet')),
-    array('label' => 'Пополнить Баланс', 'url' => array('Balanse')),
-    array('label' => 'Список купленных', 'url' => array('History')),
+    //array('label' => 'Список купленных', 'url' => array('History')),
 );
 $cnt = count($result);
 if ($cnt > 0)
@@ -110,4 +110,14 @@ else
     <h3>Ваша корзина пуста</h3>
 <?php
 }
+
+extract($History);
+$cnt = 0;
+$this->renderPartial('History',
+    array('result' => $result,
+        'cnt' => $cnt,
+        'cntbuy' => $cntbuy,
+        'dates' => $dates,
+    ));
+
 ?>

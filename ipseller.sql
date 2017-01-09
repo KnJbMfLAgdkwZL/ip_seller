@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 11 2015 г., 06:41
+-- Время создания: Мар 15 2015 г., 17:18
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.4.24
 
@@ -35,14 +35,18 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `new` int(11) NOT NULL COMMENT 'New or not  (1, 0)',
   PRIMARY KEY (`id`),
   KEY `from` (`from`,`to`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=66 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
 
 --
 -- Дамп данных таблицы `chat`
 --
 
 INSERT INTO `chat` (`id`, `from`, `to`, `message`, `time`, `new`) VALUES
-(65, 85, 0, '11', 1425939515, 0);
+(65, 85, 0, '11', 1425939515, 0),
+(66, 0, 85, '123', 1426313976, 0),
+(67, 85, 0, '456', 1426313983, 0),
+(68, 85, 0, '789', 1426313998, 0),
+(69, 0, 85, 'dfgfdg', 1426399171, 0);
 
 -- --------------------------------------------------------
 
@@ -60,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `ipall` (
   `city` varchar(50) NOT NULL,
   `zip` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=343 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=373 ;
 
 --
 -- Дамп данных таблицы `ipall`
@@ -224,7 +228,37 @@ INSERT INTO `ipall` (`id`, `ip`, `login`, `pass`, `country`, `state`, `city`, `z
 (339, '199.20.44.120', 'admin', 'default', 'United States (US)', 'New York', 'New York', 'Unknown'),
 (340, '192.230.133.161', 'ftp', 'ftp', 'United States (US)', 'Iowa', 'Des Moines', '50309'),
 (341, '166.200.165.166', 'root', 'root', 'United States (US)', 'Unknown', 'Unknown', 'Unknown'),
-(342, '75.151.201.133', 'PlcmSpIp', 'PlcmSpIp', 'United States (US)', 'Louisiana', 'Monroe', '71201');
+(342, '75.151.201.133', 'PlcmSpIp', 'PlcmSpIp', 'United States (US)', 'Louisiana', 'Monroe', '71201'),
+(343, '127.0.0.1', 'git', 'git', 'Ukraine', 'Kiev', 'Киев', '12345'),
+(344, '127.0.0.2', 'git', 'git', 'Ukraine', 'Kiev', 'Киев', '67891'),
+(345, '127.0.0.3', 'git', 'git', 'Ukraine', 'Kiev', 'Белая Церковь', '75342'),
+(346, '127.0.0.4', 'git', 'git', 'Ukraine', 'Kiev', 'Бровары', '95148'),
+(347, '127.0.0.5', 'git', 'git', 'Ukraine', 'Kiev', 'Фастов', '90014'),
+(348, '127.0.0.6', 'git', 'git', 'Ukraine', 'Kiev', 'Борисполь', '75386'),
+(349, '127.0.0.7', 'git', 'git', 'Ukraine', 'Kiev', 'Борисполь', '35742'),
+(350, '127.0.0.8', 'git', 'git', 'Ukraine', 'Odessa', 'Odessa', '73915'),
+(351, '127.0.0.9', 'git', 'git', 'Ukraine', 'Odessa', 'Odessa', '97136'),
+(352, '127.0.0.10', 'git', 'git', 'Ukraine', 'Odessa', 'Измаил', '63185'),
+(353, '127.0.0.11', 'git', 'git', 'Ukraine', 'Odessa', 'Ильичёвск', '42685'),
+(354, '127.0.0.12', 'git', 'git', 'Ukraine', 'Odessa', 'Белгород-Днестровский', '78123'),
+(355, '127.0.0.13', 'git', 'git', 'Ukraine', 'Odessa', 'Котовск', '95186'),
+(356, '127.0.0.14', 'git', 'git', 'Ukraine', 'Kharkiv', 'Kharkiv', '74965'),
+(357, '127.0.0.15', 'git', 'git', 'Ukraine', 'Kharkiv', 'Kharkiv', '14365'),
+(358, '127.0.0.16', 'git', 'git', 'Ukraine', 'Kharkiv', 'Kharkiv', '79468'),
+(359, '127.0.0.17', 'git', 'git', 'Ukraine', 'Kharkiv', 'Лозовая', '12365'),
+(360, '127.0.0.18', 'git', 'git', 'Ukraine', 'Kharkiv', 'Купянск', '46521'),
+(361, '127.0.0.19', 'git', 'git', 'Ukraine', 'Kharkiv', 'Изюм', '89361'),
+(362, '127.0.0.20', 'git', 'git', 'Japan', 'Kanto', 'Tokio', '78951'),
+(363, '127.0.0.21', 'git', 'git', 'Japan', 'Kanto', 'Tokio', '11223'),
+(364, '127.0.0.22', 'git', 'git', 'Japan', 'Kanto', 'Асикага', '33568'),
+(365, '127.0.0.23', 'git', 'git', 'Japan', 'Kanto', 'Каги', '77896'),
+(366, '127.0.0.24', 'git', 'git', 'Japan', 'Kanto', 'Канума', '11475'),
+(367, '127.0.0.25', 'git', 'git', 'Somali', 'Muqdisho', 'Muqdisho', '77963'),
+(368, '127.0.0.26', 'git', 'git', 'Somali', 'Muqdisho', 'Muqdisho', '96852'),
+(369, '127.0.0.27', 'git', 'git', 'Somali', 'Muqdisho', 'Balcad', '88896'),
+(370, '127.0.0.28', 'git', 'git', 'England', 'Greater London', 'London', '11113'),
+(371, '127.0.0.29', 'git', 'git', 'England', 'Greater London', 'London', '11114'),
+(372, '127.0.0.30', 'git', 'git', 'England', 'Greater Manchester', 'Bolton', '11115');
 
 -- --------------------------------------------------------
 
@@ -241,33 +275,7 @@ CREATE TABLE IF NOT EXISTS `ipstatus` (
   PRIMARY KEY (`id`),
   KEY `idipall` (`idipall`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
-
---
--- Дамп данных таблицы `ipstatus`
---
-
-INSERT INTO `ipstatus` (`id`, `idipall`, `status`, `userid`, `time`) VALUES
-(1, 314, 2, 85, 1426043116),
-(2, 313, 2, 85, 1426043116),
-(3, 312, 2, 85, 1426043116),
-(4, 311, 2, 85, 1426043116),
-(5, 310, 2, 85, 1426043116),
-(6, 309, 2, 85, 1426043182),
-(7, 308, 2, 85, 1426043182),
-(8, 307, 2, 85, 1426043182),
-(9, 306, 2, 85, 1426043182),
-(10, 305, 2, 85, 1426043182),
-(11, 304, 2, 85, 1426043346),
-(12, 303, 2, 85, 1426043346),
-(13, 302, 2, 85, 1426043346),
-(14, 301, 2, 85, 1426043346),
-(15, 300, 2, 85, 1426043346),
-(16, 299, 2, 85, 1426043346),
-(17, 298, 2, 85, 1426043346),
-(18, 297, 2, 85, 1426043346),
-(19, 296, 2, 85, 1426052077),
-(20, 295, 2, 85, 1426052077);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
 
 -- --------------------------------------------------------
 
@@ -288,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `management` (
 
 INSERT INTO `management` (`key`, `value`) VALUES
 ('Price', '1'),
-('LastCheckAllUserSession', '1426052474');
+('LastCheckAllUserSession', '1426436121');
 
 -- --------------------------------------------------------
 
@@ -352,14 +360,14 @@ CREATE TABLE IF NOT EXISTS `userloginedtime` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_2` (`user`),
   KEY `user` (`user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=122 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=133 ;
 
 --
 -- Дамп данных таблицы `userloginedtime`
 --
 
 INSERT INTO `userloginedtime` (`id`, `user`, `time`) VALUES
-(121, 85, 1426052480);
+(132, 85, 1426436154);
 
 -- --------------------------------------------------------
 
@@ -388,7 +396,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`Id`, `Login`, `Password`, `Reg_Date`, `Role`, `Email`, `Balans`) VALUES
 (59, 'Admin', '$2a$13$iCD/WvVcPSDrtMwi1t2f9ONMIucIqUEvZx5Da3fGRvWdr4pQFszKS', '2015-03-05 18:47:51', 1, 'hgj951gj@mail.ru', 0),
 (87, 'user3', '$2a$13$AGRlbptLEjH4w/vB2J2QueqDaIJsbARKL6Gd1yC/NKsMzPKwGAA/q', '2015-03-08 07:16:05', 2, 'user3@mail.ru', 7),
-(85, 'user', '$2a$13$GQ5RXbAkBR2vQnxPH.b0Qu8pK2DdVtGHPxYanCGmTwG229p6Ax1fG', '2015-03-06 01:55:31', 2, 'user@mail.ru', 9.5),
+(85, 'user', '$2a$13$GQ5RXbAkBR2vQnxPH.b0Qu8pK2DdVtGHPxYanCGmTwG229p6Ax1fG', '2015-03-06 01:55:31', 2, 'user@mail.ru', 779),
 (86, 'user2', '$2a$13$qUk/6S9VNEucrszKTEy6kuHPcelSnIXwx6ZZKnEKK4fVAzSArkCLy', '2015-03-08 03:27:37', 2, 'user2@mail.ru', 18);
 
 -- --------------------------------------------------------
