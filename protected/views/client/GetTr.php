@@ -26,7 +26,7 @@ foreach ($result as $k => &$v)
             <input class='counters' type='number' min='0' max='{$v['count']}' step='1' value='0'/>
         </td>
         <td>
-            <button class='btn btn-sm btn-primary col-lg-offset-0 disabled buybtn'>Купить</button>
+            <button class='btn btn-sm btn-primary col-lg-offset-0 disabled buybtn' prevf='$prevf' prevv='$prevv'>Купить</button>
         </td>
     </tr >";
 }

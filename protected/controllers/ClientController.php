@@ -15,7 +15,7 @@ class ClientController extends Controller
                 'actions' => array('GetCount', /*'Index',*/
                     'ShoppingCart', 'Cabinet',
                     'Cartclear', 'Buycart', 'StillAlive', 'Balanse', 'History',
-                    'GetNextCount'
+                    'GetNextCount', 'ShoppingCart2'
                 ),
                 'roles' => array('User'),
             ),
@@ -46,7 +46,7 @@ class ClientController extends Controller
                             {
                                 $next = $arr[$i];
                                 $result = Ipall::GetNextCount($text, $field, $next);
-                                $this->renderPartial('GetTr', array('result' => $result, 'next' => $next, 'kill' => $kill));
+                                $this->renderPartial('GetTr', array('prevv' => $text, 'prevf' => $field, 'result' => $result, 'next' => $next, 'kill' => $kill));
                             }
                         }
                     }
@@ -171,6 +171,69 @@ class ClientController extends Controller
     {
         $this->render('index');
     }*/
+    public function actionShoppingCart2()
+    {
+        $alertmessage = 'default';
+        try
+        {
+            if (Check::Value($_POST))
+            {
+                if (Check::Value($_POST['field']))
+                {
+                    if (Check::Value($_POST['seartext']))
+                    {
+                        if (Check::Value($_POST['count']))
+                        {
+                            $field = $_POST['field'];
+                            $seartext = $_POST['seartext'];
+                            $count = $_POST['count'];
+
+                            $prevf = $_POST['prevf'];
+                            $prevv = $_POST['prevv'];
+
+                            $sel = $field;
+                            $sel = mb_strtolower($sel, 'UTF-8');
+                            $val = $seartext;
+                            $arr = array('country', 'state', 'city', 'zip');
+                            if (in_array($sel, $arr))
+                            {
+                                $res = $this->GoNext($sel, $val);
+                                if (Check::Value($res))
+                                {
+                                    if ($res['count'] < $count)
+                                    {
+                                        $alertmessage = 'toolow';
+                                    }
+                                    else
+                                    {
+                                        if (!Yii::app()->user->isGuest)
+                                        {
+                                            $id = Yii::app()->user->getId();
+                                            $sel = $field;
+                                            $sel = mb_strtolower($sel, 'UTF-8');
+                                            $val = $seartext;
+                                            $db = new Ipall();
+                                            $db->ByiIp2($id, $count, $sel, $val, $prevf, $prevv);
+                                            $alertmessage = 'success';
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    $alertmessage = 'toolow';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception $e)
+        {
+            $alertmessage = 'error';
+        }
+        $this->renderPartial('AlertMessage', array('alertmessage' => $alertmessage, 'count' => $count));
+    }
     public function actionShoppingCart()
     {
         $alertmessage = 'default';

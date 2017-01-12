@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 15 2015 г., 17:18
+-- Время создания: Мар 18 2015 г., 12:45
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.4.24
 
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `ipstatus` (
   PRIMARY KEY (`id`),
   KEY `idipall` (`idipall`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=133 ;
 
 -- --------------------------------------------------------
 
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `management` (
 
 INSERT INTO `management` (`key`, `value`) VALUES
 ('Price', '1'),
-('LastCheckAllUserSession', '1426436121');
+('LastCheckAllUserSession', '1426679082');
 
 -- --------------------------------------------------------
 
@@ -367,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `userloginedtime` (
 --
 
 INSERT INTO `userloginedtime` (`id`, `user`, `time`) VALUES
-(132, 85, 1426436154);
+(132, 85, 1426679106);
 
 -- --------------------------------------------------------
 

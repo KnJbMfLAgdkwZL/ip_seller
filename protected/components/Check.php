@@ -23,6 +23,9 @@ class Check
         $val = trim($val);
         $val = stripslashes($val);
         $val = htmlspecialchars($val);
+
+        $val = str_ireplace('amp;', '', $val);
+
         return $val;
     }
 }

@@ -28,7 +28,7 @@ class Ipall extends CActiveRecord
             $sql =
             "SELECT
                 `$next` AS `name`,
-                (SELECT COUNT(id) FROM `ipall`WHERE `$next` = `name` AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL ) AS `count`
+                (SELECT COUNT(id) FROM `ipall`WHERE `$field` = :text AND `$next` = `name` AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL ) AS `count`
             FROM `ipall`
             WHERE `$field` = :text
             AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
@@ -420,6 +420,44 @@ class Ipall extends CActiveRecord
                 $dataReader->bindParam(":user", $user, PDO::PARAM_INT);
                 $dataReader->execute();
             }
+        }
+        catch (Exception $e)
+        {
+        }
+    }
+    public function ByiIp2($user, $count, $sel, $val, $prevf, $prevv)
+    {
+        try
+        {
+            $ip_s = $this->GetIPid2($count, $sel, $val, $prevf, $prevv);
+            $sql = "INSERT INTO `ipseller`.`ipstatus` (`id`, `idipall`, `status`, `userid`) VALUES (NULL, :idip, 1, :user)";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            foreach ($ip_s as $k => $v)
+            {
+                $idip = (int)$v['id'];
+                $dataReader->bindParam(":idip", $idip, PDO::PARAM_INT);
+                $dataReader->bindParam(":user", $user, PDO::PARAM_INT);
+                $dataReader->execute();
+            }
+        }
+        catch (Exception $e)
+        {
+        }
+    }
+    public function GetIPid2($count, $sel, $val, $prevf, $prevv)
+    {
+        try
+        {
+            $sql = "SELECT ipall.id FROM ipall WHERE $sel LIKE :val AND $prevf LIKE :prevv
+              AND  (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
+                LIMIT :needcount";
+            $dataReader = Yii::app()->db->createCommand($sql);
+            $dataReader->bindParam(":val", $val, PDO::PARAM_STR);
+            $dataReader->bindParam(":prevv", $prevv, PDO::PARAM_STR);
+            $count = (int)$count;
+            $dataReader->bindParam(":needcount", $count, PDO::PARAM_INT);
+            $result = $dataReader->queryAll();
+            return $result;
         }
         catch (Exception $e)
         {

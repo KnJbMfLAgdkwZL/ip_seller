@@ -123,12 +123,23 @@ if (count($AllCountry) > 0)
         var count = obj.val();
         var seartext = parent.children().eq(0).children().eq(1).html();
         var field = parent.children().eq(0).children().eq(0).attr('field');
+
+        var prevf = $(this).attr('prevf');
+        var prevv = $(this).attr('prevv');
+
+        var url = '?r=client/ShoppingCart2';
+        if (prevf == undefined || prevv == undefined)
+        {
+            url = '?r=client/ShoppingCart';
+        }
         $.ajax({
-            url: '?r=client/ShoppingCart',
+            url: url,
             data: {
                 field: field,
                 seartext: seartext,
-                count: count
+                count: count,
+                prevf: prevf,
+                prevv: prevv
             },
             type: 'POST',
             success: function (msg)
