@@ -28,8 +28,8 @@ if ($alertmessage == 'Areyousure')
                 ?>
             </div>
             <div class="modal-footer">
-                <button type="button" id="yes" class="btn btn-warning btn-sm">Да</button>
-                <button type="button" id="close" class="btn<?php echo " $btn "; ?>btn-sm">Нет</button>
+                <button type="button" id="yes" vid="<?= $userid; ?>" class="btn btn-warning btn-sm">Да</button>
+                <button type="button" id="close" class="btn<?= " $btn "; ?>btn-sm">Нет</button>
             </div>
         </div>
     </div>
@@ -40,7 +40,7 @@ if ($alertmessage == 'Areyousure')
         });
         $('#yes').click(function ()
         {
-            var userid = <?php echo $userid ?>;
+            var userid = $(this).attr('vid');
             $.ajax({
                 url: '?r=chat/DialogDelete',
                 data: {

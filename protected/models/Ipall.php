@@ -14,27 +14,45 @@
  */
 class Ipall extends CActiveRecord
 {
-    /**
-     * @return string the associated database table name
-     */
     public function tableName()
     {
         return 'ipall';
     }
-    static public function GetNextCount($text, $field, $next)
+    static public function GetNextCount($next, $prev = array())
     {
+        $and = '';
+        foreach($prev as $k => $v)
+        {
+            $and .= " AND `$k` = :{$k}";
+        }
         try
         {
             $sql =
             "SELECT
                 `$next` AS `name`,
-                (SELECT COUNT(id) FROM `ipall`WHERE `$field` = :text AND `$next` = `name` AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL ) AS `count`
+                (
+                  SELECT COUNT(id)
+                  FROM `ipall`
+                  WHERE `$next` = `name`
+                  $and
+                  AND (
+                        SELECT ipstatus.id
+                        FROM ipstatus
+                        WHERE idipall = ipall.id
+                      ) IS NULL
+                ) AS `count`
             FROM `ipall`
-            WHERE `$field` = :text
-            AND (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
+            WHERE (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
+            $and
             GROUP BY `$next` ORDER BY `$next`";
             $dataReader = Yii::app()->db->createCommand($sql);
-            $dataReader->bindParam(":text", $text, PDO::PARAM_STR);
+            foreach($prev as $k => $v)
+            {
+                if (array_key_exists($k, $prev))
+                {
+                    $dataReader->bindParam(":$k", $prev[$k], PDO::PARAM_STR);
+                }
+            }
             $result = $dataReader->queryAll();
             if (Check::Value($result))
             {
@@ -425,11 +443,11 @@ class Ipall extends CActiveRecord
         {
         }
     }
-    public function ByiIp2($user, $count, $sel, $val, $prevf, $prevv)
+    public function ByiIp2($user, $count, $sel, $val, $prev = array())
     {
         try
         {
-            $ip_s = $this->GetIPid2($count, $sel, $val, $prevf, $prevv);
+            $ip_s = $this->GetIPid2($count, $sel, $val, $prev);
             $sql = "INSERT INTO `ipseller`.`ipstatus` (`id`, `idipall`, `status`, `userid`) VALUES (NULL, :idip, 1, :user)";
             $dataReader = Yii::app()->db->createCommand($sql);
             foreach ($ip_s as $k => $v)
@@ -444,16 +462,29 @@ class Ipall extends CActiveRecord
         {
         }
     }
-    public function GetIPid2($count, $sel, $val, $prevf, $prevv)
+    public function GetIPid2($count, $sel, $val, $prev = array())
     {
         try
         {
-            $sql = "SELECT ipall.id FROM ipall WHERE $sel LIKE :val AND $prevf LIKE :prevv
+            $and = '';
+            foreach($prev as $k => $v)
+            {
+                $and .= " AND `$k` = :{$k}";
+            }
+            $sql = "SELECT ipall.id FROM ipall WHERE $sel LIKE :val $and
               AND  (SELECT ipstatus.id FROM ipstatus WHERE idipall = ipall.id) IS NULL
                 LIMIT :needcount";
             $dataReader = Yii::app()->db->createCommand($sql);
             $dataReader->bindParam(":val", $val, PDO::PARAM_STR);
-            $dataReader->bindParam(":prevv", $prevv, PDO::PARAM_STR);
+
+            foreach($prev as $k => $v)
+            {
+                if (array_key_exists($k, $prev))
+                {
+                    $dataReader->bindParam(":$k", $prev[$k], PDO::PARAM_STR);
+                }
+            }
+
             $count = (int)$count;
             $dataReader->bindParam(":needcount", $count, PDO::PARAM_INT);
             $result = $dataReader->queryAll();
@@ -657,9 +688,6 @@ class Ipall extends CActiveRecord
             return 0;
         }
     }
-    /**
-     * @return array validation rules for model attributes.
-     */
     public function rules()
     {
         // NOTE: you should only define rules for those attributes that
@@ -672,18 +700,10 @@ class Ipall extends CActiveRecord
             array('id, ip, login, pass, country, state, city, zip', 'safe', 'on' => 'search'),
         );
     }
-    /**
-     * @return array relational rules.
-     */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array();
     }
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
     public function attributeLabels()
     {
         return array(
@@ -697,18 +717,6 @@ class Ipall extends CActiveRecord
             'zip' => 'Zip',
         );
     }
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
-     */
     public function search()
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
@@ -725,12 +733,6 @@ class Ipall extends CActiveRecord
             'criteria' => $criteria,
         ));
     }
-    /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
-     * @param string $className active record class name.
-     * @return Ipall the static model class
-     */
     public static function model($className = __CLASS__)
     {
         return parent::model($className);

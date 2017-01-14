@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 18 2015 г., 12:45
+-- Время создания: Мар 19 2015 г., 11:40
 -- Версия сервера: 5.6.15-log
 -- Версия PHP: 5.4.24
 
@@ -35,18 +35,18 @@ CREATE TABLE IF NOT EXISTS `chat` (
   `new` int(11) NOT NULL COMMENT 'New or not  (1, 0)',
   PRIMARY KEY (`id`),
   KEY `from` (`from`,`to`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 --
 -- Дамп данных таблицы `chat`
 --
 
 INSERT INTO `chat` (`id`, `from`, `to`, `message`, `time`, `new`) VALUES
-(65, 85, 0, '11', 1425939515, 0),
-(66, 0, 85, '123', 1426313976, 0),
-(67, 85, 0, '456', 1426313983, 0),
-(68, 85, 0, '789', 1426313998, 0),
-(69, 0, 85, 'dfgfdg', 1426399171, 0);
+(84, 85, 0, '68678', 1426761549, 0),
+(83, 85, 0, '567567', 1426761512, 0),
+(82, 85, 0, '68678', 1426761368, 0),
+(81, 0, 85, '5675', 1426760476, 0),
+(80, 85, 0, '797', 1426760462, 0);
 
 -- --------------------------------------------------------
 
@@ -275,7 +275,7 @@ CREATE TABLE IF NOT EXISTS `ipstatus` (
   PRIMARY KEY (`id`),
   KEY `idipall` (`idipall`),
   KEY `userid` (`userid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=133 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=190 ;
 
 -- --------------------------------------------------------
 
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `management` (
 
 INSERT INTO `management` (`key`, `value`) VALUES
 ('Price', '1'),
-('LastCheckAllUserSession', '1426679082');
+('LastCheckAllUserSession', '1426761565');
 
 -- --------------------------------------------------------
 
@@ -360,14 +360,15 @@ CREATE TABLE IF NOT EXISTS `userloginedtime` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_2` (`user`),
   KEY `user` (`user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=133 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=136 ;
 
 --
 -- Дамп данных таблицы `userloginedtime`
 --
 
 INSERT INTO `userloginedtime` (`id`, `user`, `time`) VALUES
-(132, 85, 1426679106);
+(135, 59, 1426761554),
+(134, 85, 1426761613);
 
 -- --------------------------------------------------------
 

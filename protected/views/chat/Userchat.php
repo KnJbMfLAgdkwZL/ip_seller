@@ -18,18 +18,19 @@
         </div>
         <div class="form-group">
             <div class="col-lg-1 col-lg-offset-3">
-                <button id="butonsend" class="btn btn-primary">Отправить</button>
+                <button id="butonsend" vid="<?= $id; ?>" class="btn btn-primary">Отправить</button>
             </div>
         </div>
     </fieldset>
 </form>
 <script>
-    var height = $("#chatbody").height() + 9999999999999;
+    var height = $("#chatbody").height() + 999999999;
     $("#chatbody").animate({"scrollTop": height}, 1);
+
     $('#butonsend').click(function ()
     {
         var str = $('#textArea').val();
-        var id = <?php echo $id; ?>;
+        var id = $(this).attr('vid');
         //alert(str)
         if (str.length > 0)
         {
@@ -45,7 +46,7 @@
                     $('#textArea').val('');
                     $('#chatbody').html(msg);
 
-                    var height = $("#chatbody").height() + 9999999999999;
+                    var height = $("#chatbody").height() + 999999999;
                     $("#chatbody").animate({"scrollTop": height}, 1);
 
                 }
@@ -54,8 +55,7 @@
     });
     setInterval(function ()
     {
-        var id = <?php echo $id; ?>;
-
+        var id = $('#butonsend').attr('vid');
         $.ajax({
             url: '?r=chat/AdminCheckNewMEsFromser',
             data: {
@@ -66,6 +66,7 @@
             {
                 if (msg == 'yes')
                 {
+                    var id = $('#butonsend').attr('vid');
                     $.ajax({
                         url: '?r=chat/AdminGetNewMES',
                         data: {
@@ -76,7 +77,7 @@
                         {
                             $('#chatbody').html(msg);
 
-                            var height = $("#chatbody").height() + 9999999999999;
+                            var height = $("#chatbody").height() + 999999999;
                             $("#chatbody").animate({"scrollTop": height}, 1);
                         }
                     });

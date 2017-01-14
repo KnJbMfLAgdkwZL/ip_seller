@@ -124,13 +124,12 @@ if (count($AllCountry) > 0)
         var seartext = parent.children().eq(0).children().eq(1).html();
         var field = parent.children().eq(0).children().eq(0).attr('field');
 
-        var prevf = $(this).attr('prevf');
-        var prevv = $(this).attr('prevv');
-
+        var prev = $(this).attr('prev');
         var url = '?r=client/ShoppingCart2';
-        if (prevf == undefined || prevv == undefined)
+        if (prev == undefined)
         {
             url = '?r=client/ShoppingCart';
+            prev = '';
         }
         $.ajax({
             url: url,
@@ -138,8 +137,7 @@ if (count($AllCountry) > 0)
                 field: field,
                 seartext: seartext,
                 count: count,
-                prevf: prevf,
-                prevv: prevv
+                prev: prev
             },
             type: 'POST',
             success: function (msg)
@@ -236,6 +234,12 @@ if (count($AllCountry) > 0)
         var text = cur.parent().children().eq(1).html();
         var field = cur.attr('field');
         var kill = cur.attr('kill');
+        var parent = cur.parent().parent();
+        var prev = parent.children().eq(3).children().eq(0).attr('prev');
+        if(prev == undefined)
+        {
+            prev = '';
+        }
         if (cur.html() == '+')
         {
             $.ajax({
@@ -243,7 +247,8 @@ if (count($AllCountry) > 0)
                 data: {
                     text: text,
                     field: field,
-                    kill: kill
+                    kill: kill,
+                    prev: prev
                 },
                 type: 'POST',
                 success: function (msg)
@@ -261,8 +266,6 @@ if (count($AllCountry) > 0)
             $(kill).remove();
         }
     });
-
-
 </script>
 <style>
     .openmore

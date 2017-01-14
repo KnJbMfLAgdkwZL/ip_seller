@@ -22,7 +22,7 @@ else if ($alertmessage == 'toolow')
     $str = 'Вы запросили слишком много IP, или их уже приобрел кто то другой. Повторите запрос поиска.';
     $head = 'Повторите запрос поиска';
     $btn = 'btn-success';
-    $closescript = '$(location).attr("href", "./index.php?r=client/index");';
+    $closescript = '$(location).attr("href", "./index.php?r=site/index");';
 }
 else if ($alertmessage == 'error')
 {

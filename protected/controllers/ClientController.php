@@ -37,6 +37,12 @@ class ClientController extends Controller
                         $text = Check::Clear($_POST['text']);
                         $field = Check::Clear($_POST['field']);
                         $kill = Check::Clear($_POST['kill']);
+                        $prev = array();
+                        if(Check::Value($_POST['prev']))
+                        {
+                                $prev = $_POST['prev'];
+                                $prev = unserialize($prev);
+                        }
                         $arr = array('country', 'state', 'city', 'zip');
                         if (in_array($field, $arr))
                         {
@@ -44,9 +50,11 @@ class ClientController extends Controller
                             $i++;
                             if (array_key_exists($i, $arr))
                             {
+                                $prev[$field] = $text;
                                 $next = $arr[$i];
-                                $result = Ipall::GetNextCount($text, $field, $next);
-                                $this->renderPartial('GetTr', array('prevv' => $text, 'prevf' => $field, 'result' => $result, 'next' => $next, 'kill' => $kill));
+                                $result = Ipall::GetNextCount($next, $prev);
+                                $prev = serialize($prev);
+                                $this->renderPartial('GetTr', array('prev'=>$prev, 'result' => $result, 'next' => $next, 'kill' => $kill));
                             }
                         }
                     }
@@ -188,8 +196,12 @@ class ClientController extends Controller
                             $seartext = $_POST['seartext'];
                             $count = $_POST['count'];
 
-                            $prevf = $_POST['prevf'];
-                            $prevv = $_POST['prevv'];
+                            $prev = array();
+                            if(Check::Value($_POST['prev']))
+                            {
+                                $prev = $_POST['prev'];
+                                $prev = unserialize($prev);
+                            }
 
                             $sel = $field;
                             $sel = mb_strtolower($sel, 'UTF-8');
@@ -213,7 +225,7 @@ class ClientController extends Controller
                                             $sel = mb_strtolower($sel, 'UTF-8');
                                             $val = $seartext;
                                             $db = new Ipall();
-                                            $db->ByiIp2($id, $count, $sel, $val, $prevf, $prevv);
+                                            $db->ByiIp2($id, $count, $sel, $val, $prev);
                                             $alertmessage = 'success';
                                         }
                                     }
