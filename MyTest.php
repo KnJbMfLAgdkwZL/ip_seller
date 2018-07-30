@@ -7,7 +7,7 @@ preg_match('#id="MaxMind">.*id="IP2Location"#', $str, $matches);
 $str = $matches[0];
 $str = preg_replace('#id="MaxMind">#', '', $str);
 $str = preg_replace('#id="IP2Location#', '', $str);
-echo $str;
+echo $str; 
 
 
 ?>
