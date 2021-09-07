@@ -1,21 +1,21 @@
 # ip_seller
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.40.53.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.40.53.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.42.37.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.42.37.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.43.01.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.43.01.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.43.27.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.43.27.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.43.41.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.43.41.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.46.42.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.46.42.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.47.34.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.47.34.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.48.01.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.48.01.png)
 
-![screen](screenshots/Скриншот%сделанный%2016-07-18%в%22.48.28.png)
+![screen](screenshots/%D0%A1%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82%20%D1%81%D0%B4%D0%B5%D0%BB%D0%B0%D0%BD%D0%BD%D1%8B%D0%B9%202016-07-18%20%D0%B2%2022.48.28.png)
 
 
