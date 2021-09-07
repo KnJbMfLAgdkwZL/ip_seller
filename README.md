@@ -1,7 +1,7 @@
 # ip_seller
 
 
-![screen](screenshots/Скриншот сделанный 2016-07-18 в 22.40.53.png)
+![screen]("screenshots/Скриншот сделанный 2016-07-18 в 22.40.53.png")
 
 ![screen](screenshots/Скриншот сделанный 2016-07-18 в 22.42.37.png)
 
